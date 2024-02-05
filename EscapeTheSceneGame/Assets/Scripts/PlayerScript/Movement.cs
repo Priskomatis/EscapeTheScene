@@ -14,7 +14,7 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        Vector3 move = new Vector3(Input.GetAxis("Vertical"), 0, -1*(Input.GetAxis("Horizontal")));
 
         characterController.Move(move*Time.deltaTime *speed);
     }
