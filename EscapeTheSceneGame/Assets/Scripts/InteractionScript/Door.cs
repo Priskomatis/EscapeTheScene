@@ -7,6 +7,8 @@ public class Door : MonoBehaviour
     [SerializeField] private Animator anim;
     private bool canOpen;
 
+    [SerializeField] private AudioSource audioSource;
+
 
     private void Update()
     {
@@ -15,6 +17,7 @@ public class Door : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 anim.SetBool("Open", true);
+                audioSource.Play();
                 anim.SetBool("Close", false);
 
             }

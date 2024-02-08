@@ -9,6 +9,9 @@ public class Movement : MonoBehaviour
     private Camera playerCamera;
     private float rotationX = 0f;
 
+    [SerializeField] private Animator anim;
+    private bool walking;
+
     private void Start()
     {
         characterController = GetComponent<CharacterController>();
@@ -24,6 +27,10 @@ public class Movement : MonoBehaviour
         Vector3 move = transform.right * horizontal + transform.forward * vertical;
         characterController.Move(move * speed * Time.deltaTime);
 
+        // Check if the player is moving
+        float moveMagnitude = new Vector2(horizontal, vertical).sqrMagnitude;
+        walking = moveMagnitude > 0.1f;
+
         // Player rotation
         float mouseX = Input.GetAxis("Mouse X") * sensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
@@ -35,5 +42,8 @@ public class Movement : MonoBehaviour
         rotationX -= mouseY;
         rotationX = Mathf.Clamp(rotationX, -90f, 90f); // Clamp vertical rotation to avoid over-rotation
         playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0f, 0f);
+
+        // Update the animator parameter
+        anim.SetBool("walking", true);
     }
 }
