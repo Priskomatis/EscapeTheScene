@@ -3,47 +3,36 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     public float speed = 5f;
-    public float sensitivity = 2f;
+    public float rotationSpeed = 10f;
 
-    private CharacterController characterController;
-    private Camera playerCamera;
-    private float rotationX = 0f;
+    private Rigidbody rb;
 
-    [SerializeField] private Animator anim;
-    private bool walking;
-
-    private void Start()
+    void Start()
     {
-        characterController = GetComponent<CharacterController>();
-        playerCamera = GetComponentInChildren<Camera>();
-        Cursor.lockState = CursorLockMode.Locked;
+        rb = GetComponent<Rigidbody>();
+        // Freeze rotation so the player doesn't tip over
+        rb.freezeRotation = true;
     }
 
-    private void Update()
+    void Update()
     {
-        // Player movement
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-        Vector3 move = transform.right * horizontal + transform.forward * vertical;
-        characterController.Move(move * speed * Time.deltaTime);
+        // Get input for movement
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
 
-        // Check if the player is moving
-        float moveMagnitude = new Vector2(horizontal, vertical).sqrMagnitude;
-        walking = moveMagnitude > 0.1f;
+        // Calculate movement direction
+        Vector3 movement = new Vector3(horizontal, 0f, vertical);
+        movement.Normalize(); // Ensure diagonal movement isn't faster
 
-        // Player rotation
-        float mouseX = Input.GetAxis("Mouse X") * sensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
+        // Rotate towards movement direction
+        if (movement != Vector3.zero)
+        {
+            Quaternion toRotation = Quaternion.LookRotation(movement, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+        }
 
-        // Rotate the player's body horizontally based on mouse movement
-        transform.Rotate(Vector3.up * mouseX);
-
-        // Rotate the camera vertically based on mouse movement
-        rotationX -= mouseY;
-        rotationX = Mathf.Clamp(rotationX, -90f, 90f); // Clamp vertical rotation to avoid over-rotation
-        playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0f, 0f);
-
-        // Update the animator parameter
-        anim.SetBool("walking", true);
+        // Move the player using Rigidbody
+        Vector3 moveDirection = transform.TransformDirection(movement) * speed;
+        rb.velocity = new Vector3(moveDirection.x, rb.velocity.y, moveDirection.z);
     }
 }

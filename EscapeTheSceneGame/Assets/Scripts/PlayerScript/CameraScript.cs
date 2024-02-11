@@ -21,6 +21,8 @@ public class CameraScript : MonoBehaviour
     float rotAverageY = 0F;
     public float frameCounter = 20;
     Quaternion originalRotation;
+
+    
     void Update()
     {
         if (axes == RotationAxes.MouseXAndY)
@@ -115,6 +117,7 @@ public class CameraScript : MonoBehaviour
         if (rb)
             rb.freezeRotation = true;
         originalRotation = transform.localRotation;
+        Cursor.lockState = CursorLockMode.Locked;
     }
     public static float ClampAngle(float angle, float min, float max)
     {
