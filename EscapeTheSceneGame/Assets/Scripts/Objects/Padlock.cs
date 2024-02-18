@@ -4,8 +4,12 @@ using UnityEngine;
 public class Padlock : MonoBehaviour
 {
 
+    private HighlightEffect[] highlights;
+
     [SerializeField] Animator anim;
     [SerializeField] Animator unlock;
+
+    private bool allowRoate;
 
     private int[][] numbers; // Array of arrays for each padlock combination;
     private int[] currentNumbers; // Array to hold the current values of each number;
@@ -14,6 +18,8 @@ public class Padlock : MonoBehaviour
 
     private void Start()
     {
+        highlights = GetComponentsInChildren<HighlightEffect>(true);
+
         numbers = new int[3][];
         currentNumbers = new int[3];
 
@@ -31,19 +37,24 @@ public class Padlock : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            IncreaseNumber(0);
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            IncreaseNumber(1);
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-            IncreaseNumber(2);
+        if(allowRoate)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+                IncreaseNumber(0);
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+                IncreaseNumber(1);
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+                IncreaseNumber(2);
+        }
+        
 
-        Debug.Log(numbers);
         if (currentNumbers[0] == 1 && currentNumbers[1] == 1 && currentNumbers[2] == 1)
         {
             anim.SetBool("Open", true);
             unlock.SetTrigger("Unlock");
         }
+
+
 
     }
 
@@ -58,4 +69,32 @@ public class Padlock : MonoBehaviour
     {
         padlock.transform.Rotate(0f, 0f, -36f);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            allowRoate = true;
+            Debug.Log("Press 'E' to enter padlock code");
+            foreach (HighlightEffect highlight in highlights)
+            {
+                highlight.ToggleEmission();
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        
+
+        allowRoate = false;
+
+        foreach (HighlightEffect highlight in highlights)
+            {
+                highlight.ToggleEmission();
+            }
+        
+    }
+
+
 }
