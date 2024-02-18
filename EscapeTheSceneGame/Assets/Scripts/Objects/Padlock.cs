@@ -5,6 +5,7 @@ public class Padlock : MonoBehaviour
 {
 
     [SerializeField] Animator anim;
+    [SerializeField] Animator unlock;
 
     private int[][] numbers; // Array of arrays for each padlock combination;
     private int[] currentNumbers; // Array to hold the current values of each number;
@@ -38,8 +39,12 @@ public class Padlock : MonoBehaviour
             IncreaseNumber(2);
 
         Debug.Log(numbers);
-        if (currentNumbers[0] == 4 && currentNumbers[1] == 5 && currentNumbers[2] == 6)
+        if (currentNumbers[0] == 1 && currentNumbers[1] == 1 && currentNumbers[2] == 1)
+        {
             anim.SetBool("Open", true);
+            unlock.SetTrigger("Unlock");
+        }
+
     }
 
     void IncreaseNumber(int padlockType)
