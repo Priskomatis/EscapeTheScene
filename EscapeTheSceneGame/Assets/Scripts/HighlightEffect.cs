@@ -21,15 +21,6 @@ public class HighlightEffect : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        // Check for "E" key press
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            ToggleEmission();
-        }
-    }
-
     public void ToggleEmission()
     {
         // Toggle emission state

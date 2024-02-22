@@ -75,7 +75,7 @@ public class Padlock : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             allowRoate = true;
-            Debug.Log("Press 'E' to enter padlock code");
+            //Debug.Log("Press 'E' to enter padlock code");
             foreach (HighlightEffect highlight in highlights)
             {
                 highlight.ToggleEmission();
