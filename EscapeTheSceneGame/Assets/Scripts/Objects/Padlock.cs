@@ -4,21 +4,32 @@ using UnityEngine;
 public class Padlock : MonoBehaviour
 {
 
+    private bool prefab;
+    private ZoomInEffect zoomIn;
+
+    //We use an array of HighlightEffects because the padlock gameObject has 4 children that make the model;
+    //We want each model (each child) to highlight at the same time to create the effect;
     private HighlightEffect[] highlights;
+    private HighlightEffect highlight;
 
     [SerializeField] Animator anim;
     [SerializeField] Animator unlock;
 
     private bool allowRoate;
+    private bool canOpenPanel;
+    private bool showHighlight = true;
 
     private int[][] numbers; // Array of arrays for each padlock combination;
     private int[] currentNumbers; // Array to hold the current values of each number;
+
+    [SerializeField] int[] magicNumbers;
 
     [SerializeField] private GameObject[] transformLocks; // Array of padlock GameObjects;
 
     private void Start()
     {
         highlights = GetComponentsInChildren<HighlightEffect>(true);
+        zoomIn = FindObjectOfType<ZoomInEffect>();
 
         numbers = new int[3][];
         currentNumbers = new int[3];
@@ -37,7 +48,13 @@ public class Padlock : MonoBehaviour
 
     private void Update()
     {
-        if(allowRoate)
+        if(Input.GetKeyDown(KeyCode.E) && canOpenPanel)
+        {
+            zoomIn.ActivatePannel();
+            allowRoate = true;
+        }
+
+        if (allowRoate)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
                 IncreaseNumber(0);
@@ -45,16 +62,17 @@ public class Padlock : MonoBehaviour
                 IncreaseNumber(1);
             if (Input.GetKeyDown(KeyCode.Alpha3))
                 IncreaseNumber(2);
+
+            if (currentNumbers[0] == magicNumbers[0] && currentNumbers[1] == magicNumbers[1] && currentNumbers[2] == magicNumbers[2])
+            {
+                zoomIn.DisablePannel();
+                anim.SetBool("Open", true);
+                unlock.SetTrigger("Unlock");
+                showHighlight = false;
+
+            }
         }
         
-
-        if (currentNumbers[0] == 1 && currentNumbers[1] == 1 && currentNumbers[2] == 1)
-        {
-            anim.SetBool("Open", true);
-            unlock.SetTrigger("Unlock");
-        }
-
-
 
     }
 
@@ -74,26 +92,40 @@ public class Padlock : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            allowRoate = true;
+            canOpenPanel = true;
             //Debug.Log("Press 'E' to enter padlock code");
-            foreach (HighlightEffect highlight in highlights)
+            if(showHighlight)
             {
-                highlight.ToggleEmission();
+                foreach (HighlightEffect highlight in highlights)
+                {
+                    highlight.ToggleEmission();
+
+                    //If player presses "E" to interact with the padlock a zoom in effect with blur background should emerge;
+
+                }
             }
+            
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        
+        canOpenPanel = false;
+        zoomIn.DisablePannel();
 
-        allowRoate = false;
-
-        foreach (HighlightEffect highlight in highlights)
+        if (other.CompareTag("Player"))
+        {
+            if (showHighlight)
             {
-                highlight.ToggleEmission();
+                foreach (HighlightEffect highlight in highlights)
+                {
+                    highlight.ToggleEmission();
+                }
+
             }
+        }
         
+
     }
 
 
