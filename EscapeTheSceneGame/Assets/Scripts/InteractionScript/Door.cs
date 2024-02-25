@@ -8,7 +8,7 @@ public class Door : MonoBehaviour
     private bool canOpen;
 
     [SerializeField] private AudioSource audioSource;
-
+    [SerializeField] private bool closeDoorAfter;
 
     private void Update()
     {
@@ -36,8 +36,12 @@ public class Door : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             canOpen = false;
-            anim.SetBool("Open", false);
-            anim.SetBool("Close", true);
+            if (closeDoorAfter)
+            {
+                anim.SetBool("Open", false);
+                anim.SetBool("Close", true);
+            }
+            
 
 
         }
