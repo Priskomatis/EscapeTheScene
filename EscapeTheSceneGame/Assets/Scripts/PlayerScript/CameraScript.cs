@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-[AddComponentMenu("Camera-Control/Smooth Mouse Look")]
 public class CameraScript : MonoBehaviour
 {
 
@@ -22,7 +21,7 @@ public class CameraScript : MonoBehaviour
     public float frameCounter = 20;
     Quaternion originalRotation;
 
-    
+
     void Update()
     {
         if (axes == RotationAxes.MouseXAndY)
