@@ -20,6 +20,7 @@ public class Door : MonoBehaviour
                 audioSource.Play();
                 anim.SetBool("Close", false);
 
+
             }
         }
         
