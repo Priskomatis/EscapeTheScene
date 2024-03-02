@@ -1,30 +1,47 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class IntroText : MonoBehaviour
 {
-    public float letterDelay = 0.1f;
-    public string fullText;
-    private string currentText = "";
     [SerializeField] private TextMeshProUGUI textComponent;
+    [SerializeField] private string[] textList;
+    [SerializeField] private AudioSource audioSource;
 
     private void Start()
     {
-        fullText = textComponent.text.ToString();
-        //textComponent.text = "";
-        StartCoroutine(TypeText());
+        textComponent.text = "";
+        StartCoroutine(DisplayTextSequence());
     }
 
-    IEnumerator TypeText()
+    private IEnumerator DisplayTextSequence()
     {
-        for (int i = 0; i < fullText.Length; i++)
+        for (int i = 0; i < textList.Length; i++)
         {
-            currentText = fullText.Substring(0, i + 1);
-            textComponent.text = currentText;
-            yield return new WaitForSeconds(letterDelay);
+            yield return StartCoroutine(DisplayText(textList[i]));
+            yield return WaitForInput(KeyCode.E); // Wait for the "E" key press
+            textComponent.text = "";
+        }
+        audioSource.Stop(); // Stop the audio after displaying all texts
+    }
+
+    private IEnumerator DisplayText(string text)
+    {
+        audioSource.Play(); // Start playing the audio when displaying text
+        for (int j = 0; j < text.Length; j++)
+        {
+            textComponent.text += text[j];
+            yield return new WaitForSeconds(0.1f);
+        }
+        yield return new WaitForSeconds(1f); // Optional delay after displaying the entire text
+        audioSource.Stop(); // Stop the audio after displaying the entire text
+    }
+
+    private IEnumerator WaitForInput(KeyCode key)
+    {
+        while (!Input.GetKeyDown(key))
+        {
+            yield return null;
         }
     }
 }
-
