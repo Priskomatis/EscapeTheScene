@@ -7,11 +7,16 @@ public class IntroText : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textComponent;
     [SerializeField] private string[] textList;
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] private TextMeshProUGUI continueText;
+
+
 
     private void Start()
     {
         textComponent.text = "";
         StartCoroutine(DisplayTextSequence());
+
+
     }
 
     private IEnumerator DisplayTextSequence()
@@ -19,22 +24,24 @@ public class IntroText : MonoBehaviour
         for (int i = 0; i < textList.Length; i++)
         {
             yield return StartCoroutine(DisplayText(textList[i]));
-            yield return WaitForInput(KeyCode.E); // Wait for the "E" key press
+            yield return WaitForInput(KeyCode.Space); //Wait for the "space" key press;
             textComponent.text = "";
+            
         }
-        audioSource.Stop(); // Stop the audio after displaying all texts
+        audioSource.Stop(); //Stop the audio after displaying all texts;
+
+
     }
 
     private IEnumerator DisplayText(string text)
     {
-        audioSource.Play(); // Start playing the audio when displaying text
+        audioSource.Play(); //Start playing the audio when displaying text;
         for (int j = 0; j < text.Length; j++)
         {
             textComponent.text += text[j];
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.075f);
         }
-        audioSource.Stop(); // Stop the audio after displaying the last letter of the text
-        yield return new WaitForSeconds(1f); // Optional delay after displaying the entire text
+        audioSource.Stop(); //Stop the audio after displaying the last letter of the text;
     }
 
     private IEnumerator WaitForInput(KeyCode key)
