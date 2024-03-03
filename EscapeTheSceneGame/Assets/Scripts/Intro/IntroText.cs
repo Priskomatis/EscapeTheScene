@@ -33,8 +33,8 @@ public class IntroText : MonoBehaviour
             textComponent.text += text[j];
             yield return new WaitForSeconds(0.1f);
         }
+        audioSource.Stop(); // Stop the audio after displaying the last letter of the text
         yield return new WaitForSeconds(1f); // Optional delay after displaying the entire text
-        audioSource.Stop(); // Stop the audio after displaying the entire text
     }
 
     private IEnumerator WaitForInput(KeyCode key)
