@@ -8,40 +8,41 @@ public class IntroText : MonoBehaviour
     [SerializeField] private string[] textList;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private TextMeshProUGUI continueText;
-
-
+    [SerializeField] private float letterDisplaySpeed = 0.075f;
+    [SerializeField] private float continueTextOpacityDuringDisplay = 0.5f;
+    private Color originalContinueTextColor;
 
     private void Start()
     {
         textComponent.text = "";
+        originalContinueTextColor = continueText.color;
         StartCoroutine(DisplayTextSequence());
-
-
     }
 
     private IEnumerator DisplayTextSequence()
     {
         for (int i = 0; i < textList.Length; i++)
         {
+            continueText.color = new Color(originalContinueTextColor.r, originalContinueTextColor.g, originalContinueTextColor.b, continueTextOpacityDuringDisplay);
             yield return StartCoroutine(DisplayText(textList[i]));
-            yield return WaitForInput(KeyCode.Space); //Wait for the "space" key press;
+
+            continueText.color = originalContinueTextColor;
+
+            yield return WaitForInput(KeyCode.Space); // Wait for the "space" key press;
             textComponent.text = "";
-            
         }
-        audioSource.Stop(); //Stop the audio after displaying all texts;
-
-
+        audioSource.Stop(); // Stop the audio after displaying all texts;
     }
 
     private IEnumerator DisplayText(string text)
     {
-        audioSource.Play(); //Start playing the audio when displaying text;
+        audioSource.Play(); // Start playing the audio when displaying text;
         for (int j = 0; j < text.Length; j++)
         {
             textComponent.text += text[j];
-            yield return new WaitForSeconds(0.075f);
+            yield return new WaitForSeconds(letterDisplaySpeed);
         }
-        audioSource.Stop(); //Stop the audio after displaying the last letter of the text;
+        audioSource.Stop(); // Stop the audio after displaying the last letter of the text;
     }
 
     private IEnumerator WaitForInput(KeyCode key)

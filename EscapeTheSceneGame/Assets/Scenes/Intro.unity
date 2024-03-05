@@ -781,20 +781,21 @@ MonoBehaviour:
   textList:
   - How can one's house be seen?
   - Some can witness a home as creative, others as dull and others as indifferent.
-  - But what about a mansion which is up to this date haunted from a legend?
-  - A legend that states the following
-  - Doctor Stephens, a charming, intelligent and famous doctor in the 70's
-  - would start his journey on creating the medicine that until today
-  - is unknown on what it could do to a human being.
-  - Some said that his family abandoned him after finding out
-  - the plans that he had scheduled with this medicine.
-  - Years have passed, is he still rotting inside the mansion?
-  - Or is he nothing more than a creepypast
-  - meant to scare teenagers from entering the mansion?
-  - The only people that may discover the truth about this huanted legend
-  - are Federick, Derrick, Stephen and Maive
+  - ' But what about a mansion which is up to this date haunted from a legend?'
+  - 'A legend that states the following:'
+  - "Doctor Stephens, a charming, intelligent and famous doctor in  the 70\u2019s"
+  - would start his journey on creating the medicine that until today is unknown
+    on what it could do to a human being.
+  - Some said that his family abandoned him after finding out the plans that he had
+    scheduled with this medicine.
+  - After years, he is still inside that mansion rotting to his loneliness.
+  - Thus, the only people that may or may not discover the truth about this haunted
+    legend are
+  - 'are Federick, Derrick, Stephen and Maive.  '
   audioSource: {fileID: 1062450941}
   continueText: {fileID: 1891273640}
+  letterDisplaySpeed: 0.075
+  continueTextOpacityDuringDisplay: 0.3
 --- !u!114 &1448071528
 MonoBehaviour:
   m_ObjectHideFlags: 0
