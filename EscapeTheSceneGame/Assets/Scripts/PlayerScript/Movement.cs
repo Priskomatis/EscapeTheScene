@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    
     [SerializeField] Transform playerCamera;
     [SerializeField] [Range(0.0f, 0.5f)] float mouseSmoothTime = 0.03f;
     [SerializeField] bool cursorLock = true;
@@ -14,6 +13,10 @@ public class Movement : MonoBehaviour
     [SerializeField] float gravity = -30f;
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask ground;
+
+    [SerializeField] private AudioSource footstepsAudio;
+    [SerializeField] private AudioClip regularFootstepSound;
+    [SerializeField] private AudioClip carpetFootstepSound;
 
     public float jumpHeight = 6f;
     float velocityY;
@@ -37,12 +40,42 @@ public class Movement : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = true;
         }
+
+        footstepsAudio = GetComponent<AudioSource>();
+        footstepsAudio.clip = regularFootstepSound; // Assign the regular footstep sound
+        footstepsAudio.Stop();
     }
 
     void Update()
     {
         UpdateMouse();
         UpdateMove();
+
+        // Check for player movement and play/stop audio accordingly
+        if (currentDir.magnitude > 0.1f && isGrounded)
+        {
+            if (!footstepsAudio.isPlaying)
+            {
+                // Start playing footstep audio based on ground material
+                if (IsOnCarpet())
+                {
+                    footstepsAudio.clip = carpetFootstepSound; // Switch to carpet footstep sound
+                    Debug.Log("Carpet!");
+                }
+                else
+                {
+                    footstepsAudio.clip = regularFootstepSound; // Switch to regular footstep sound
+                    Debug.Log("Floor!");
+                }
+
+                footstepsAudio.Play();
+            }
+        }
+        else
+        {
+            // Stop audio when not moving
+            footstepsAudio.Stop();
+        }
     }
 
     void UpdateMouse()
@@ -93,4 +126,26 @@ public class Movement : MonoBehaviour
         }
     }
 
+    bool IsOnCarpet()
+    {
+        // Create a Ray from the groundCheck position straight down
+        Ray ray = new Ray(groundCheck.position, Vector3.down);
+
+        // Set the maximum distance of the ray based on your needs
+        float maxRayDistance = 2f;
+
+        // Perform the raycast
+        if (Physics.Raycast(ray, out RaycastHit hit, maxRayDistance, LayerMask.GetMask("Carpet")))
+        {
+            Debug.Log("Hit object layer: " + hit.collider.gameObject.layer);
+
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Carpet"))
+            {
+                Debug.Log("Carpet!");
+                return true; // The character is on carpet
+            }
+        }
+
+        return false; // The character is not on carpet
+    }
 }
