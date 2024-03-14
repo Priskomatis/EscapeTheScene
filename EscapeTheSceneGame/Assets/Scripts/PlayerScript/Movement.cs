@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    
     [SerializeField] Transform playerCamera;
     [SerializeField] [Range(0.0f, 0.5f)] float mouseSmoothTime = 0.03f;
     [SerializeField] bool cursorLock = true;
@@ -14,6 +13,12 @@ public class Movement : MonoBehaviour
     [SerializeField] float gravity = -30f;
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask ground;
+
+    [SerializeField] private AudioSource footstepsAudio;
+    [SerializeField] private AudioClip regularFootstepSound;
+    [SerializeField] private AudioClip carpetFootstepSound;
+
+    private string  floorTag;
 
     public float jumpHeight = 6f;
     float velocityY;
@@ -26,7 +31,6 @@ public class Movement : MonoBehaviour
     CharacterController controller;
     Vector2 currentDir;
     Vector2 currentDirVelocity;
-    Vector3 velocity;
 
     void Start()
     {
@@ -37,12 +41,44 @@ public class Movement : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = true;
         }
+
+        footstepsAudio = GetComponent<AudioSource>();
+        footstepsAudio.clip = regularFootstepSound; // Assign the regular footstep sound
+        footstepsAudio.Stop();
     }
 
     void Update()
     {
         UpdateMouse();
         UpdateMove();
+
+        // Check for player movement and play/stop audio accordingly
+        if (currentDir.magnitude > 0.1f && isGrounded)
+        {
+            
+                // Start playing footstep audio based on ground material
+                if (IsOnCarpet())
+                {
+                    footstepsAudio.clip = carpetFootstepSound; // Switch to carpet footstep sound
+                }
+                else
+                {
+                    footstepsAudio.clip = regularFootstepSound; // Switch to regular footstep sound
+
+                }
+
+            if (!footstepsAudio.isPlaying)
+            {
+                footstepsAudio.Play();
+            }
+
+
+        }
+        else
+        {
+            // Stop audio when not moving
+            footstepsAudio.Stop();
+        }
     }
 
     void UpdateMouse()
@@ -93,4 +129,22 @@ public class Movement : MonoBehaviour
         }
     }
 
+    bool IsOnCarpet()
+    {
+       
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit))
+        {
+            floorTag = hit.collider.tag;
+            Debug.Log(floorTag);
+        }
+
+        if(floorTag == "carpet")
+        {
+            Debug.Log("carpet");
+            return true;
+        }
+        else
+            return false; // The character is not on carpet
+    }
 }
