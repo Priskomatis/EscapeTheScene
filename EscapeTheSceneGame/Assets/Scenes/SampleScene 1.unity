@@ -5905,7 +5905,7 @@ MonoBehaviour:
     m_Bits: 192
   footstepsAudio: {fileID: 756832996}
   regularFootstepSound: {fileID: 8300000, guid: b63426b2f7d21ba489c7e0468f920f83, type: 3}
-  carpetFootstepSound: {fileID: 8300000, guid: a1b9f2b6df95eb945aec740ede5b64f8, type: 3}
+  carpetFootstepSound: {fileID: 8300000, guid: 73f65f07a0f54dc40b1bfb3ab4e737dd, type: 3}
   jumpHeight: 6
 --- !u!82 &756832996
 AudioSource:
