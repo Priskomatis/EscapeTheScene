@@ -9,9 +9,11 @@ public class BookObject : MonoBehaviour
     private bool canRead;
     private bool isOpen;
 
+    private TextAppear textAppear;
     public void Start()
     {
         bookManager = FindObjectOfType<BookManager>();
+        textAppear = FindObjectOfType<TextAppear>();
     }
 
     private void Update()
@@ -26,6 +28,7 @@ public class BookObject : MonoBehaviour
             else
             {
                 bookManager.ReadBook();
+                textAppear.RemoveText();
             }
             isOpen = !isOpen; // Toggle the state of the book
         }
@@ -36,6 +39,7 @@ public class BookObject : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             canRead = true;
+            textAppear.SetText("Press 'E' to read the Book.");
         }
     }
 
@@ -47,8 +51,10 @@ public class BookObject : MonoBehaviour
             if (isOpen) // If the player exits the trigger while the book is open, close it
             {
                 bookManager.CloseBook();
+                textAppear.RemoveText();
                 isOpen = false;
             }
+            textAppear.RemoveText();
         }
     }
 }
