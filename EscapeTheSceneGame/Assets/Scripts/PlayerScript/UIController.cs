@@ -48,6 +48,7 @@ public class UIController : MonoBehaviour
         currentState = GameState.ReadingBook;
         canMove = false;
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         
     }
 
@@ -55,6 +56,7 @@ public class UIController : MonoBehaviour
     {
         currentState = GameState.Playing;
         canMove = true;
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
