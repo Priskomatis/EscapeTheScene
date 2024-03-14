@@ -18,6 +18,8 @@ public class Movement : MonoBehaviour
     [SerializeField] private AudioClip regularFootstepSound;
     [SerializeField] private AudioClip carpetFootstepSound;
 
+    private string  floorTag;
+
     public float jumpHeight = 6f;
     float velocityY;
     bool isGrounded;
@@ -29,7 +31,6 @@ public class Movement : MonoBehaviour
     CharacterController controller;
     Vector2 currentDir;
     Vector2 currentDirVelocity;
-    Vector3 velocity;
 
     void Start()
     {
@@ -54,22 +55,24 @@ public class Movement : MonoBehaviour
         // Check for player movement and play/stop audio accordingly
         if (currentDir.magnitude > 0.1f && isGrounded)
         {
-            if (!footstepsAudio.isPlaying)
-            {
+            
                 // Start playing footstep audio based on ground material
                 if (IsOnCarpet())
                 {
                     footstepsAudio.clip = carpetFootstepSound; // Switch to carpet footstep sound
-                    Debug.Log("Carpet!");
                 }
                 else
                 {
                     footstepsAudio.clip = regularFootstepSound; // Switch to regular footstep sound
-                    Debug.Log("Floor!");
+
                 }
 
+            if (!footstepsAudio.isPlaying)
+            {
                 footstepsAudio.Play();
             }
+
+
         }
         else
         {
@@ -128,24 +131,20 @@ public class Movement : MonoBehaviour
 
     bool IsOnCarpet()
     {
-        // Create a Ray from the groundCheck position straight down
-        Ray ray = new Ray(groundCheck.position, Vector3.down);
-
-        // Set the maximum distance of the ray based on your needs
-        float maxRayDistance = 2f;
-
-        // Perform the raycast
-        if (Physics.Raycast(ray, out RaycastHit hit, maxRayDistance, LayerMask.GetMask("Carpet")))
+       
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit))
         {
-            Debug.Log("Hit object layer: " + hit.collider.gameObject.layer);
-
-            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Carpet"))
-            {
-                Debug.Log("Carpet!");
-                return true; // The character is on carpet
-            }
+            floorTag = hit.collider.tag;
+            Debug.Log(floorTag);
         }
 
-        return false; // The character is not on carpet
+        if(floorTag == "carpet")
+        {
+            Debug.Log("carpet");
+            return true;
+        }
+        else
+            return false; // The character is not on carpet
     }
 }
