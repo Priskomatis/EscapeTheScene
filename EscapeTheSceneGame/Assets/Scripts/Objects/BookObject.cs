@@ -10,8 +10,16 @@ public class BookObject : MonoBehaviour
     private bool isOpen;
 
     private TextAppear textAppear;
+
+    private HighlightEffect highlight;
+
+    private bool emissionToggled = false;
+
+
     public void Start()
     {
+        highlight = GetComponent<HighlightEffect>();
+
         bookManager = FindObjectOfType<BookManager>();
         textAppear = FindObjectOfType<TextAppear>();
     }
@@ -38,6 +46,11 @@ public class BookObject : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            if (!emissionToggled) // Check if emission has not been toggled yet
+            {
+                highlight.ToggleEmission();
+                emissionToggled = true; // Set the flag to true
+            }
             canRead = true;
             textAppear.SetText("Press 'E' to read the Book.");
         }
@@ -47,6 +60,11 @@ public class BookObject : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            if (emissionToggled) // Check if emission has been toggled
+            {
+                highlight.ToggleEmission();
+                emissionToggled = false; // Reset the flag
+            }
             canRead = false;
             if (isOpen) // If the player exits the trigger while the book is open, close it
             {
