@@ -32,9 +32,13 @@ public class Movement : MonoBehaviour
     Vector2 currentDir;
     Vector2 currentDirVelocity;
 
+    //Get the current State of the game;
+    private UIController stateController;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        stateController = FindObjectOfType<UIController>();
 
         if (cursorLock)
         {
@@ -49,13 +53,15 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        UpdateMouse();
-        UpdateMove();
-
-        // Check for player movement and play/stop audio accordingly
-        if (currentDir.magnitude > 0.1f && isGrounded)
+        if (stateController.canMove)
         {
-            
+            UpdateMouse();
+            UpdateMove();
+
+            // Check for player movement and play/stop audio accordingly
+            if (currentDir.magnitude > 0.1f && isGrounded)
+            {
+
                 // Start playing footstep audio based on ground material
                 if (IsOnCarpet())
                 {
@@ -67,18 +73,21 @@ public class Movement : MonoBehaviour
 
                 }
 
-            if (!footstepsAudio.isPlaying)
-            {
-                footstepsAudio.Play();
+                if (!footstepsAudio.isPlaying)
+                {
+                    footstepsAudio.Play();
+                }
+
+
             }
+            else
+            {
+                // Stop audio when not moving
+                footstepsAudio.Stop();
+            }
+        } else footstepsAudio.Stop();
 
 
-        }
-        else
-        {
-            // Stop audio when not moving
-            footstepsAudio.Stop();
-        }
     }
 
     void UpdateMouse()
