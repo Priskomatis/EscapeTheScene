@@ -7,22 +7,26 @@ public class BookManager : MonoBehaviour
     [SerializeField] private Canvas bookCanvas;
 
     private UIController stateController;
+    private bool canRead;
 
     private void Start()
     {
         stateController = FindObjectOfType<UIController>();
     }
 
-    private void Update()
+  
+    public void ReadBook()
     {
-        if (Input.GetKeyDown(KeyCode.Tab)){
-            bookCanvas.gameObject.SetActive(true);
-            stateController.EnterReadingBookState();
-        }
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            bookCanvas.gameObject.SetActive(false);
-            stateController.ExitReadingBookState();
-        }
+        bookCanvas.gameObject.SetActive(true);
+        stateController.EnterReadingBookState();
     }
+
+    public void CloseBook()
+    {
+        bookCanvas.gameObject.SetActive(false);
+        stateController.ExitReadingBookState();
+    }
+
+    
 }
+
