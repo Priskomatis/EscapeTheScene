@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PickUpCandle : MonoBehaviour
+public class Candle : MonoBehaviour
 {
     private TextAppear textAppear;
     private HighlightEffect highlight;
