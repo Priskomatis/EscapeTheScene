@@ -19,7 +19,6 @@ public class BookObject : MonoBehaviour
     public void Start()
     {
         highlight = GetComponent<HighlightEffect>();
-
         bookManager = FindObjectOfType<BookManager>();
         textAppear = FindObjectOfType<TextAppear>();
     }
