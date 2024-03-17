@@ -2,17 +2,18 @@ using UnityEngine;
 
 public class PickUpCandle : MonoBehaviour
 {
-    [SerializeField] private GameObject candle;
     private TextAppear textAppear;
     private HighlightEffect highlight;
     private bool playerInRange = false;
 
+    private PickUpItem pickUpItem;
     private void Start()
     {
         // Initialize highlight effect
         highlight = GetComponent<HighlightEffect>();
-        candle.SetActive(false);
         textAppear = FindObjectOfType<TextAppear>();
+
+        pickUpItem = FindObjectOfType<PickUpItem>();
     }
 
     private void Update()
@@ -45,8 +46,12 @@ public class PickUpCandle : MonoBehaviour
 
     private void PickUp()
     {
-        candle.SetActive(true);
+        //candle.SetActive(true);
+        highlight.ToggleEmission();
+        pickUpItem.PickUp(this.gameObject);
+
         gameObject.SetActive(false);
+
         textAppear.RemoveText();
     }
 }
