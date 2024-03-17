@@ -14,13 +14,11 @@ public class BookObject : MonoBehaviour
     private HighlightEffect highlight;
 
     private bool emissionToggled = false;
-    private PickUpItem pickUpItem;
 
 
     public void Start()
     {
         highlight = GetComponent<HighlightEffect>();
-        pickUpItem = FindObjectOfType<PickUpItem>();
         bookManager = FindObjectOfType<BookManager>();
         textAppear = FindObjectOfType<TextAppear>();
     }
@@ -40,12 +38,6 @@ public class BookObject : MonoBehaviour
                 textAppear.RemoveText();
             }
             isOpen = !isOpen; // Toggle the state of the book
-        }
-        if(canRead && Input.GetKeyDown(KeyCode.F))
-        {
-            highlight.ToggleEmission();
-            pickUpItem.PickUp(this.gameObject);
-            gameObject.SetActive(false);
         }
     }
 
