@@ -7,9 +7,11 @@ public class PhoneScript : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     private bool canRing;
 
+    private QuestManager quest;
     private void Start()
     {
         canRing = false;
+        quest = FindObjectOfType<QuestManager>();
     }
 
     private void Update()
@@ -17,6 +19,8 @@ public class PhoneScript : MonoBehaviour
         if (canRing && Input.GetKeyDown(KeyCode.R))
         {
             audioSource.Play();
+            quest.ActivateQuest("Read the Book");
+
         }
     }
     private void OnTriggerEnter(Collider other)

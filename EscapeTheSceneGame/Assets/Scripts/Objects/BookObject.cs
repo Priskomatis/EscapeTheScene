@@ -15,12 +15,15 @@ public class BookObject : MonoBehaviour
 
     private bool emissionToggled = false;
 
+    private QuestManager quest;
+
 
     public void Start()
     {
         highlight = GetComponent<HighlightEffect>();
         bookManager = FindObjectOfType<BookManager>();
         textAppear = FindObjectOfType<TextAppear>();
+        quest = FindObjectOfType<QuestManager>();
     }
 
     private void Update()
@@ -35,6 +38,8 @@ public class BookObject : MonoBehaviour
             else
             {
                 bookManager.ReadBook();
+                quest.CompleteQuest();
+
                 textAppear.RemoveText();
             }
             isOpen = !isOpen; // Toggle the state of the book
