@@ -20,6 +20,7 @@ public class PhoneScript : MonoBehaviour
         {
             audioSource.Play();
             quest.ActivateQuest("Read the Book");
+            quest.activeQuest = "Book";
 
         }
     }

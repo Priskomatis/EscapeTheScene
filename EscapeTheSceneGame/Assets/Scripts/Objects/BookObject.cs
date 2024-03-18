@@ -38,7 +38,11 @@ public class BookObject : MonoBehaviour
             else
             {
                 bookManager.ReadBook();
-                quest.CompleteQuest();
+                if (quest.activeQuest.Equals("Book"))
+                {
+                    quest.CompleteQuest();
+
+                }
 
                 textAppear.RemoveText();
             }

@@ -6,6 +6,7 @@ using UnityEngine;
 public class QuestManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI questText;
+    public string activeQuest;
 
     public void ActivateQuest(string quest)
     {
@@ -16,6 +17,7 @@ public class QuestManager : MonoBehaviour
     public void CompleteQuest()
     {
         questText.text = "";
+        activeQuest = "";
         questText.gameObject.SetActive(false);
     }
 }
