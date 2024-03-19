@@ -6,6 +6,7 @@ public class DetectObject : MonoBehaviour
 {
     [SerializeField] Vector3 collision = Vector3.zero;
     [SerializeField] private LayerMask objectLayer;
+    [SerializeField] private float distance;
     private string lastHit;
 
     private void Update()
@@ -13,7 +14,7 @@ public class DetectObject : MonoBehaviour
         var ray = new Ray(this.transform.position, this.transform.forward);
 
         RaycastHit hit;
-        if(Physics.Raycast(ray, out hit, 100, objectLayer))
+        if(Physics.Raycast(ray, out hit, distance, objectLayer))
         {
             lastHit = hit.transform.gameObject.name;
             collision = hit.point;
