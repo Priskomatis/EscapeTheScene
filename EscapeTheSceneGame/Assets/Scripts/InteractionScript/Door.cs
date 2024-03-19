@@ -7,8 +7,10 @@ public class Door : MonoBehaviour
     [SerializeField] private Animator anim;
     private bool canOpen;
 
-    [SerializeField] private AudioSource audioSource;
     [SerializeField] private bool closeDoorAfter;
+
+    [SerializeField] private AudioSource doorOpen;
+    [SerializeField] private AudioSource doorClose;
 
     private void Update()
     {
@@ -16,11 +18,8 @@ public class Door : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                anim.SetBool("Open", true);
-                audioSource.Play();
-                anim.SetBool("Close", false);
-
-
+                anim.SetTrigger("Open");
+                doorOpen.Play();
             }
         }
         
@@ -37,14 +36,8 @@ public class Door : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             canOpen = false;
-            if (closeDoorAfter)
-            {
-                anim.SetBool("Open", false);
-                anim.SetBool("Close", true);
-            }
-            
-
-
+            anim.SetTrigger("Close");
+            doorClose.Play();
         }
     }
 }
