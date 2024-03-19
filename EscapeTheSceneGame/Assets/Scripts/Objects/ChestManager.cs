@@ -6,11 +6,12 @@ public class ChestManager : MonoBehaviour
 {
     [SerializeField] private Animator anim;
 
-    private void Update()
+    public void OpenChest()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
             anim.SetTrigger("Open");
+
         }
     }
 

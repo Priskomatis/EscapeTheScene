@@ -3060,6 +3060,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Table (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8d9bfc2cd07f073459f2ebf1e5554887, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8d9bfc2cd07f073459f2ebf1e5554887, type: 3}
+      propertyPath: m_TagString
+      value: Door
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d9bfc2cd07f073459f2ebf1e5554887, type: 3}
 --- !u!1 &384773862
@@ -6056,11 +6064,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a7a8c3af101f464995f6544d31e4418, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collision: {x: 0, y: 0, z: 0}
   objectLayer:
     serializedVersion: 2
     m_Bits: 256
-  distance: 0
+  distance: 2
+  panel: {fileID: 367574518}
+  text: {fileID: 793656377}
 --- !u!1 &765677776
 GameObject:
   m_ObjectHideFlags: 0
@@ -11041,6 +11050,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: eed76dcbb62331849841211d056d256b, type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: eed76dcbb62331849841211d056d256b, type: 3}
+      propertyPath: m_TagString
+      value: Chest
       objectReference: {fileID: 0}
     - target: {fileID: 4606910993440540684, guid: eed76dcbb62331849841211d056d256b, type: 3}
       propertyPath: m_LocalScale.y
@@ -19335,6 +19348,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 21fd61768dafd26468eab066fa3801eb, type: 3}
       propertyPath: m_Name
       value: book
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 21fd61768dafd26468eab066fa3801eb, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 21fd61768dafd26468eab066fa3801eb, type: 3}
+      propertyPath: m_TagString
+      value: Book
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21fd61768dafd26468eab066fa3801eb, type: 3}
@@ -28784,6 +28805,18 @@ PrefabInstance:
     - target: {fileID: 3201858127568848804, guid: 2760d74d08321084d9836b4fa295c964, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5800651759092062721, guid: 2760d74d08321084d9836b4fa295c964, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.003
+      objectReference: {fileID: 0}
+    - target: {fileID: 5800651759092062721, guid: 2760d74d08321084d9836b4fa295c964, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 5800651759092062721, guid: 2760d74d08321084d9836b4fa295c964, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2760d74d08321084d9836b4fa295c964, type: 3}
