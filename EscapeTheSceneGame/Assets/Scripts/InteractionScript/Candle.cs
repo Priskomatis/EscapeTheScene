@@ -2,56 +2,52 @@ using UnityEngine;
 
 public class Candle : MonoBehaviour
 {
-    private TextAppear textAppear;
     private HighlightEffect highlight;
-    private bool playerInRange = false;
+    private bool emissionToggled = false;
 
     private PickUpItem pickUpItem;
     private void Start()
     {
         // Initialize highlight effect
         highlight = GetComponent<HighlightEffect>();
-        textAppear = FindObjectOfType<TextAppear>();
-
         pickUpItem = FindObjectOfType<PickUpItem>();
     }
 
-    private void Update()
+
+    public void ToggleEmmision()
     {
-        if (playerInRange && Input.GetKeyDown(KeyCode.E))
+        if (!emissionToggled) // Check if emission has not been toggled yet
         {
-            PickUp();
+            highlight.ToggleEmission();
+            emissionToggled = !emissionToggled; // Set the flag to true
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    /*private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && !playerInRange)
+        if (other.gameObject.CompareTag("Player"))
         {
-            playerInRange = true;
-            textAppear.SetText("Press 'E' to pick up the candle.");
             highlight.ToggleEmission(); // Enable highlight only if player just entered the range
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && playerInRange)
+        if (other.gameObject.CompareTag("Player"))
         {
-            playerInRange = false;
-            textAppear.RemoveText();
             highlight.ToggleEmission(); // Disable highlight only if player just exited the range
         }
-    }
+    }*/
 
-    private void PickUp()
+    public void PickUp()
     {
         //candle.SetActive(true);
-        highlight.ToggleEmission();
-        pickUpItem.PickUp(this.gameObject);
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            highlight.ToggleEmission();
+            pickUpItem.PickUp(this.gameObject);
 
-        gameObject.SetActive(false);
-
-        textAppear.RemoveText();
+            gameObject.SetActive(false);
+        }
     }
 }

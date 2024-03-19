@@ -6,42 +6,51 @@ public class BookObject : MonoBehaviour
 {
 
     private BookManager bookManager;
-    private bool canRead;
-    private bool isOpen;
-
-    private TextAppear textAppear;
 
     private HighlightEffect highlight;
 
-    private bool emissionToggled = false;
-
+    [HideInInspector] public bool emissionToggled = false;
+    [HideInInspector] public bool isOpen;
 
     public void Start()
     {
         highlight = GetComponent<HighlightEffect>();
         bookManager = FindObjectOfType<BookManager>();
-        textAppear = FindObjectOfType<TextAppear>();
+        isOpen = false;
     }
 
-    private void Update()
+
+
+    public void OpenBook()
     {
-        // Check if player can read and has pressed the interaction key (E)
-        if (canRead && Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            if (isOpen)
-            {
-                bookManager.CloseBook();
-            }
-            else
-            {
-                bookManager.ReadBook();
-                textAppear.RemoveText();
-            }
-            isOpen = !isOpen; // Toggle the state of the book
+            bookManager.ReadBook();
+            isOpen = true;
+        }
+    }
+    public void CloseBook()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            bookManager.CloseBook();
+            isOpen = false;
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void ToggleEmmision(bool toggle)
+    {
+        if (toggle)
+        {
+            highlight.ToggleEmission();
+        }
+        else
+        {
+            highlight.ToggleEmission();
+        }
+    }
+
+    /*private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -53,9 +62,9 @@ public class BookObject : MonoBehaviour
             canRead = true;
             textAppear.SetText("Press 'E' to read the Book.");
         }
-    }
+    }*/
 
-    private void OnTriggerExit(Collider other)
+    /*private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -73,5 +82,5 @@ public class BookObject : MonoBehaviour
             }
             textAppear.RemoveText();
         }
-    }
+    }*/
 }

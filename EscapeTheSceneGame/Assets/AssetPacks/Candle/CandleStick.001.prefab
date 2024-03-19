@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 346076156215306964}
   - component: {fileID: 346076156215306966}
   - component: {fileID: 346076156215306965}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4823,7 +4823,7 @@ GameObject:
   m_Component:
   - component: {fileID: 346076157384394078}
   - component: {fileID: 346076157384394079}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4918,9 +4918,9 @@ GameObject:
   - component: {fileID: 5208991248301833355}
   - component: {fileID: 1146324572735664063}
   - component: {fileID: 8322158811820793493}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CandleStick.001
-  m_TagString: Untagged
+  m_TagString: Candle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

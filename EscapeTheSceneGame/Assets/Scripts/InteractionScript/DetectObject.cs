@@ -7,70 +7,68 @@ public class DetectObject : MonoBehaviour
 {
     [SerializeField] private LayerMask objectLayer;
     [SerializeField] private float distance;
-    private Dictionary<string, System.Action> objectActions = new Dictionary<string, System.Action>();
-    private Transform lastHitTransform;
-
-
-    [SerializeField] GameObject panel;
+    [SerializeField] private GameObject panel;
     [SerializeField] private TextMeshProUGUI text;
 
-
-    //private ChestManager chestManager;
-
-    private void Start()
-    {
-        // Populate the dictionary with object names and corresponding actions
-        objectActions.Add("Book", HandleBook);
-        objectActions.Add("Chest", HandleChest);
-        objectActions.Add("Door", HandleDoor);
-
-        //chestManager = FindObjectOfType<ChestManager>();
-    }
+    private Transform lastHitTransform;
+    private BookObject lastHitBookObject;
 
     private void Update()
     {
-        var ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, distance, objectLayer))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, distance, objectLayer))
         {
-            lastHitTransform = hit.transform;
-            string objectName = lastHitTransform.gameObject.tag;
-
-            // Check if the object has an action associated with it
-            if (objectActions.ContainsKey(objectName))
+            if (hit.collider != null)
             {
-                // Perform the action associated with the object
-                objectActions[objectName].Invoke();
+                Transform hitTransform = hit.transform;
+
+                if (hitTransform.CompareTag("Book"))
+                {
+                    HandleBook(hitTransform.GetComponent<BookObject>());
+                }
             }
-            
         }
         else
         {
+            ResetEmission();
             EraseText();
         }
     }
 
-
-    //Here we handle each function for when we are close to the gameobject;
-    private void HandleBook()
+    private void HandleBook(BookObject book)
     {
         Debug.Log("Detected Book!");
-        // Example: lastHitTransform.GetComponent<BookScript>().DoSomething();
+
+        // Highlight the book if it's not already highlighted
+        if (book != lastHitBookObject)
+        {
+            ResetEmission();
+            book.ToggleEmmision(true);
+            lastHitBookObject = book;
+        }
+
+        // Check if the book is already open
+        if (book.GetComponent<BookObject>().isOpen)
+        {
+            
+            book.GetComponent<BookObject>().CloseBook();
+        }
+        else
+        {
+            // Open the book if it's closed
+            IndicatorText("Press E to Read the Book");
+            book.GetComponent<BookObject>().OpenBook();
+        }
     }
 
-    private void HandleChest()
+    private void ResetEmission()
     {
-        
-        Debug.Log("Detected Chest!");
-        IndicatorText("Press E to Open Chest");
-        lastHitTransform.GetComponent<ChestManager>().OpenChest();
-    }
-
-    private void HandleDoor()
-    {
-        Debug.Log("Detected Door!");
-        // Example: lastHitTransform.GetComponent<DoorScript>().DoSomething();
+        if (lastHitBookObject != null)
+        {
+            lastHitBookObject.ToggleEmmision(false);
+            lastHitBookObject = null;
+        }
     }
 
     private void IndicatorText(string indicator)
