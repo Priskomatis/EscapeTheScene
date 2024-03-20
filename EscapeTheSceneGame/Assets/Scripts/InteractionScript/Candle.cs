@@ -1,9 +1,13 @@
+using TMPro;
 using UnityEngine;
 
-public class Candle : MonoBehaviour
+public class Candle : MonoBehaviour, IInteractable
 {
     private HighlightEffect highlight;
     private bool emissionToggled = false;
+
+    [SerializeField] GameObject panel;
+    [SerializeField] private TextMeshProUGUI text;
 
     private PickUpItem pickUpItem;
     private void Start()
@@ -39,12 +43,25 @@ public class Candle : MonoBehaviour
         }
     }*/
 
-    public void PickUp()
+    /*public void PickUp()
     {
         //candle.SetActive(true);
         if (Input.GetKeyDown(KeyCode.E))
         {
             highlight.ToggleEmission();
+            pickUpItem.PickUp(this.gameObject);
+
+            gameObject.SetActive(false);
+        }
+    }*/
+
+    public void Interact()
+    {
+        panel.SetActive(true);
+        text.text = "Press E to PickUp the Candle";
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            //highlight.ToggleEmission();
             pickUpItem.PickUp(this.gameObject);
 
             gameObject.SetActive(false);
