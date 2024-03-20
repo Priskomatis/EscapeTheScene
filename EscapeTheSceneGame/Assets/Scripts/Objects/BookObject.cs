@@ -12,13 +12,16 @@ public class BookObject : MonoBehaviour, IInteractable
 
     [HideInInspector] public bool isOpen;
 
-    [SerializeField] private TextMeshProUGUI text;
+
     [SerializeField] private string textToDisplay;
+
+    private TextAppear textAppear;
 
     public void Start()
     {
         highlight = GetComponent<HighlightEffect>();
         bookManager = FindObjectOfType<BookManager>();
+        textAppear = GetComponent<TextAppear>();
         isOpen = false;
     }
     public void ToggleEmmision()
@@ -42,8 +45,8 @@ public class BookObject : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        text.text = textToDisplay;
-        text.gameObject.SetActive(true);
+        textAppear.SetText(textToDisplay);
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (!isOpen)

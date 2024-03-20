@@ -10,13 +10,14 @@ public class PickUpItem : MonoBehaviour
 
     public void PickUp(GameObject item)
     {
-        Debug.Log("Picking up Item");
 
+        Debug.Log("Picking up Item");
         // Check if there's already a picked-up item
         if (currentPickedUpItem != null)
         {
             // Destroy the current picked-up item
             Destroy(currentPickedUpItem);
+            Debug.Log("Destroy");
         }
 
         // Instantiate and set the new picked-up item

@@ -10526,6 +10526,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   video: {fileID: 1138365929}
+  textToDisplay: Press E to Talk to the Painting
 --- !u!114 &1138365934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10538,7 +10539,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fd0c4b478d6b864ca9594ef77e01dcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panel: {fileID: 367574518}
   text: {fileID: 793656377}
 --- !u!1 &1140520947
 GameObject:
@@ -18393,6 +18393,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 793656377}
   textToDisplay: Press E to Pickup the Candle
+--- !u!114 &1386985859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1386985842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fd0c4b478d6b864ca9594ef77e01dcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 793656377}
 --- !u!1 &1393439305 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3692181557570449053, guid: 2760d74d08321084d9836b4fa295c964, type: 3}
@@ -19408,7 +19421,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOpen: 0
-  text: {fileID: 793656377}
   textToDisplay: Press E to Read the Book
 --- !u!114 &1535994996
 MonoBehaviour:
@@ -19422,6 +19434,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aecb359f6ced91144b9ead0a46553b11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1535994999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535994984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fd0c4b478d6b864ca9594ef77e01dcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 793656377}
 --- !u!1 &1539925833 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: eed76dcbb62331849841211d056d256b, type: 3}
