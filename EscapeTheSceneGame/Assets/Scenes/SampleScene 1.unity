@@ -2957,7 +2957,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &367574519
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6313,7 +6313,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &793656377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6343,7 +6343,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -8897,7 +8897,6 @@ GameObject:
   - component: {fileID: 951868853}
   - component: {fileID: 951868855}
   - component: {fileID: 951868854}
-  - component: {fileID: 951868856}
   - component: {fileID: 951868857}
   m_Layer: 9
   m_Name: Camera
@@ -8973,24 +8972,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &951868856
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 951868852}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a7a8c3af101f464995f6544d31e4418, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  distance: 2
-  panel: {fileID: 367574518}
-  text: {fileID: 793656377}
 --- !u!114 &951868857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9005,7 +8986,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InteractorSource: {fileID: 951868853}
   InteractRange: 2
-  panel: {fileID: 367574518}
   text: {fileID: 793656377}
 --- !u!1 &962709452 stripped
 GameObject:
@@ -10742,7 +10722,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh31264
+  m_Name: pb_Mesh26102
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -18411,8 +18391,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cdaf2c9684321b46829c0ddfd77b69e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panel: {fileID: 367574518}
   text: {fileID: 793656377}
+  textToDisplay: Press E to Pickup the Candle
 --- !u!1 &1393439305 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3692181557570449053, guid: 2760d74d08321084d9836b4fa295c964, type: 3}
@@ -19427,8 +19407,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b18880caf119c15448d60a4b544e363f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emissionToggled: 0
   isOpen: 0
+  text: {fileID: 793656377}
+  textToDisplay: Press E to Read the Book
 --- !u!114 &1535994996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19949,7 +19930,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh31032
+  m_Name: pb_Mesh25868
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

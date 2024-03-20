@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class BookObject : MonoBehaviour, IInteractable
@@ -10,6 +11,9 @@ public class BookObject : MonoBehaviour, IInteractable
     private bool emissionToggled = false;
 
     [HideInInspector] public bool isOpen;
+
+    [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private string textToDisplay;
 
     public void Start()
     {
@@ -38,16 +42,20 @@ public class BookObject : MonoBehaviour, IInteractable
 
     public void Interact()
     {
+        text.text = textToDisplay;
+        text.gameObject.SetActive(true);
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (!isOpen)
             {
                 OpenBook();
+                
                 isOpen = true;
             }else
             {
                 CloseBook();
-                isOpen=false;
+
+                isOpen = false;
             }
         }
         

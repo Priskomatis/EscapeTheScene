@@ -6,8 +6,9 @@ public class Candle : MonoBehaviour, IInteractable
     private HighlightEffect highlight;
     private bool emissionToggled = false;
 
-    [SerializeField] GameObject panel;
+    
     [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private string textToDisplay;
 
     private PickUpItem pickUpItem;
     private void Start()
@@ -30,8 +31,8 @@ public class Candle : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        panel.SetActive(true);
-        text.text = "Press E to PickUp the Candle";
+        text.gameObject.SetActive(true);
+        text.text = textToDisplay;
         if (Input.GetKeyDown(KeyCode.E))
         {
             //highlight.ToggleEmission();

@@ -15,8 +15,8 @@ public class Interactor : MonoBehaviour
     [SerializeField] Transform InteractorSource;
     [SerializeField] float InteractRange;
 
-    [SerializeField] GameObject panel;
     [SerializeField] private TextMeshProUGUI text;
+
 
     private IInteractable currentInteractable; // Track the currently detected interactable object
 
@@ -51,8 +51,8 @@ public class Interactor : MonoBehaviour
                 currentInteractable = null;
             }
 
-            panel.SetActive(false);
             text.text = "";
+            text.gameObject.SetActive(false);
         }
     }
 }
