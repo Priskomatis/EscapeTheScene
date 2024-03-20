@@ -9,6 +9,7 @@ public class HighlightEffect : MonoBehaviour
     private bool isEmissionEnabled = false;
     private Color originalEmissionColor;
 
+
     void Start()
     {
         renderer = GetComponent<Renderer>();

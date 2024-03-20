@@ -145,12 +145,12 @@ public class Movement : MonoBehaviour
         if (Physics.Raycast(transform.position, Vector3.down, out hit))
         {
             floorTag = hit.collider.tag;
-            Debug.Log(floorTag);
+            //Debug.Log(floorTag);
         }
 
         if(floorTag == "carpet")
         {
-            Debug.Log("carpet");
+            //Debug.Log("carpet");
             return true;
         }
         else

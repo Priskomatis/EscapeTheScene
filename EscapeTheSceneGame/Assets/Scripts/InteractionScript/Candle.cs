@@ -1,57 +1,55 @@
+using TMPro;
 using UnityEngine;
 
-public class Candle : MonoBehaviour
+public class Candle : MonoBehaviour, IInteractable
 {
-    private TextAppear textAppear;
     private HighlightEffect highlight;
-    private bool playerInRange = false;
+    private bool emissionToggled = false;
 
+    [SerializeField] private string textToDisplay;
+
+    private TextAppear textAppear;
     private PickUpItem pickUpItem;
+
     private void Start()
     {
         // Initialize highlight effect
         highlight = GetComponent<HighlightEffect>();
-        textAppear = FindObjectOfType<TextAppear>();
-
         pickUpItem = FindObjectOfType<PickUpItem>();
+        textAppear = GetComponent<TextAppear>();
     }
 
-    private void Update()
+
+    public void ToggleEmmision()
     {
-        if (playerInRange && Input.GetKeyDown(KeyCode.E))
+        if (!emissionToggled) // Check if emission has not been toggled yet
         {
-            PickUp();
+            highlight.ToggleEmission();
+            emissionToggled = !emissionToggled; // Set the flag to true
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player") && !playerInRange)
-        {
-            playerInRange = true;
-            textAppear.SetText("Press 'E' to pick up the candle.");
-            highlight.ToggleEmission(); // Enable highlight only if player just entered the range
-        }
-    }
 
-    private void OnTriggerExit(Collider other)
+    public void Interact()
     {
-        if (other.gameObject.CompareTag("Player") && playerInRange)
+        textAppear.SetText(textToDisplay);
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            playerInRange = false;
+            //highlight.ToggleEmission();
+            pickUpItem.PickUp(this.gameObject);
+
             textAppear.RemoveText();
-            highlight.ToggleEmission(); // Disable highlight only if player just exited the range
+            Destroy(gameObject);
         }
     }
-
-    private void PickUp()
+    public void OnInteractExit()
     {
-        //candle.SetActive(true);
-        highlight.ToggleEmission();
-        pickUpItem.PickUp(this.gameObject);
-
-        gameObject.SetActive(false);
-
-        textAppear.RemoveText();
+        ToggleEmmision();
+        emissionToggled = !emissionToggled;
+    }
+    public void OnInteractEnter()
+    {
+        ToggleEmmision();
+        emissionToggled = !emissionToggled;
     }
 }

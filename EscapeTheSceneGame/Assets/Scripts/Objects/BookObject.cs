@@ -1,77 +1,84 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class BookObject : MonoBehaviour
+public class BookObject : MonoBehaviour, IInteractable
 {
 
     private BookManager bookManager;
-    private bool canRead;
-    private bool isOpen;
-
-    private TextAppear textAppear;
-
     private HighlightEffect highlight;
-
     private bool emissionToggled = false;
 
+    [HideInInspector] public bool isOpen;
+
+
+    [SerializeField] private string textToDisplay;
+
+    private TextAppear textAppear;
 
     public void Start()
     {
         highlight = GetComponent<HighlightEffect>();
         bookManager = FindObjectOfType<BookManager>();
-        textAppear = FindObjectOfType<TextAppear>();
+        textAppear = GetComponent<TextAppear>();
+        isOpen = false;
     }
-
-    private void Update()
+    public void ToggleEmmision()
     {
-        // Check if player can read and has pressed the interaction key (E)
-        if (canRead && Input.GetKeyDown(KeyCode.E))
+        if (!emissionToggled) // Check if emission has not been toggled yet
         {
-            if (isOpen)
-            {
-                bookManager.CloseBook();
-            }
-            else
-            {
-                bookManager.ReadBook();
-                textAppear.RemoveText();
-            }
-            isOpen = !isOpen; // Toggle the state of the book
+            highlight.ToggleEmission();
+            emissionToggled = !emissionToggled; // Set the flag to true
         }
     }
-
-    private void OnTriggerEnter(Collider other)
+    public void OnInteractExit()
     {
-        if (other.CompareTag("Player"))
-        {
-            if (!emissionToggled) // Check if emission has not been toggled yet
-            {
-                highlight.ToggleEmission();
-                emissionToggled = true; // Set the flag to true
-            }
-            canRead = true;
-            textAppear.SetText("Press 'E' to read the Book.");
-        }
+        ToggleEmmision();
+        emissionToggled = !emissionToggled;
+    }
+    public void OnInteractEnter()
+    {
+        ToggleEmmision();
+        emissionToggled = !emissionToggled;
     }
 
-    private void OnTriggerExit(Collider other)
+    public void Interact()
     {
-        if (other.CompareTag("Player"))
+        textAppear.SetText(textToDisplay);
+
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            if (emissionToggled) // Check if emission has been toggled
+            if (!isOpen)
             {
-                highlight.ToggleEmission();
-                emissionToggled = false; // Reset the flag
-            }
-            canRead = false;
-            if (isOpen) // If the player exits the trigger while the book is open, close it
+                OpenBook();
+                
+                isOpen = true;
+            }else
             {
-                bookManager.CloseBook();
-                textAppear.RemoveText();
+                CloseBook();
+
                 isOpen = false;
             }
-            textAppear.RemoveText();
+        }
+        
+    }
+
+    public void OpenBook()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            bookManager.ReadBook();
+            isOpen = true;
         }
     }
+    public void CloseBook()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            bookManager.CloseBook();
+            isOpen = false;
+        }
+    }
+    
 }

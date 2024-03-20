@@ -5,16 +5,15 @@ using UnityEngine;
 
 public class TextAppear : MonoBehaviour
 {
-    [SerializeField] GameObject panel;
     [SerializeField] private TextMeshProUGUI text;
 
     public void SetText(string textToPut)
     {
-        panel.SetActive(true);
         text.text = textToPut;
+        text.gameObject.SetActive(true);
     }
     public void RemoveText()
     {
-        panel.SetActive(false);
+        text.gameObject.SetActive(false);
     }
 }

@@ -3,45 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 
-public class TalkingPaiting : MonoBehaviour
+public class TalkingPaiting : MonoBehaviour, IInteractable
 {
     [SerializeField] private VideoPlayer video;
     private TextAppear textAppear;
+    [SerializeField] private string textToDisplay;
 
     private bool canInteract = false;
+
+    public void Interact()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            video.Play();
+            textAppear.RemoveText();
+        }
+    }
+
+    public void OnInteractEnter()
+    {
+        textAppear.SetText(textToDisplay);
+    }
+
+    public void OnInteractExit()
+    {
+        textAppear.RemoveText();
+    }
 
     private void Start()
     {
         textAppear = FindObjectOfType<TextAppear>();
     }
 
-    private void Update()
-    {
-        if (canInteract && Input.GetKeyDown(KeyCode.E))
-        {
-            textAppear.RemoveText();
-            video.Play();
-        }
-    }
-
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            
-            textAppear.SetText("Press 'E' to interact");
-            canInteract = true;
-
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            textAppear.RemoveText();
-            canInteract = false;
-
-        }
-    }
 }
