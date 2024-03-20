@@ -27,33 +27,6 @@ public class Candle : MonoBehaviour, IInteractable
         }
     }
 
-    /*private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            highlight.ToggleEmission(); // Enable highlight only if player just entered the range
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            highlight.ToggleEmission(); // Disable highlight only if player just exited the range
-        }
-    }*/
-
-    /*public void PickUp()
-    {
-        //candle.SetActive(true);
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            highlight.ToggleEmission();
-            pickUpItem.PickUp(this.gameObject);
-
-            gameObject.SetActive(false);
-        }
-    }*/
 
     public void Interact()
     {
@@ -66,5 +39,15 @@ public class Candle : MonoBehaviour, IInteractable
 
             gameObject.SetActive(false);
         }
+    }
+    public void OnInteractExit()
+    {
+        ToggleEmmision();
+        emissionToggled = !emissionToggled;
+    }
+    public void OnInteractEnter()
+    {
+        ToggleEmmision();
+        emissionToggled = !emissionToggled;
     }
 }
