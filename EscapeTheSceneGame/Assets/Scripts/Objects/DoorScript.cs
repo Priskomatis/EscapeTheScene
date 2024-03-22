@@ -5,6 +5,8 @@ using UnityEngine;
 public class DoorScript : MonoBehaviour
 {
     private Animator anim;
+    [SerializeField] private AudioSource close;
+    [SerializeField] private AudioSource open;
 
     private void Start()
     {
@@ -24,10 +26,16 @@ public class DoorScript : MonoBehaviour
     public void OpenDoor()
     {
         anim.SetTrigger("Open");
+        open.Play();
     }
 
     public void CloseDoor()
     {
         anim.SetTrigger("Close");
+        
+    }
+    public void CloseAudio()
+    {
+        close.Play();
     }
 }
