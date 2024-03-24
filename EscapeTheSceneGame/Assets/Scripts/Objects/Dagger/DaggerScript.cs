@@ -17,6 +17,7 @@ public class DaggerScript : MonoBehaviour, IInteractable
         if (Input.GetKeyDown(KeyCode.E))
         {
             pickUp.PickUp(this.gameObject);
+            Destroy(this.gameObject);
         }
     }
 
