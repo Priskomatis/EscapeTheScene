@@ -720,6 +720,7 @@ Transform:
   - {fileID: 1410725568}
   - {fileID: 523488871}
   - {fileID: 2014377217}
+  - {fileID: 1989432070}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -29439,6 +29440,50 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.00029470262, y: 0.0027335226, z: 0.00015216424}
   m_Center: {x: 4.5450376e-11, y: -0.00046051366, z: 0.000017199298}
+--- !u!1 &1989432069
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1989432070}
+  - component: {fileID: 1989432071}
+  m_Layer: 0
+  m_Name: HealthManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1989432070
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1989432069}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 76654918}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1989432071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1989432069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42fe6d8e84edd474bbd00f25a20a59de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1990015753
 GameObject:
   m_ObjectHideFlags: 0
@@ -30307,6 +30352,18 @@ MonoBehaviour:
   - Seems locked, I gotta find a key.
   - There must be a way around this.
   - Won't budge, must find another way.
+  calmTexts:
+  - What is this place?
+  - I wonder what happened inside here.
+  mildStressTexts:
+  - I got a bad feeling about this..
+  - I need to catch my breath.
+  highStressTexts:
+  - Jesus I need to escape this place.
+  - My god why is this happening.
+  panicTexts:
+  - WHAT THE FUCK IS GOING ON
+  - HELP ME GOD PLEASE HELP ME
   thoughtsText: {fileID: 683715261}
 --- !u!1 &2035945414 stripped
 GameObject:
