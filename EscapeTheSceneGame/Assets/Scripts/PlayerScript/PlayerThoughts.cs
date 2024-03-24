@@ -5,6 +5,8 @@ using TMPro;
 
 public class PlayerThoughts : MonoBehaviour
 {
+    public bool displayText;
+
     [SerializeField] private string[] doorLockedTexts;
 
     // State Texts
@@ -53,8 +55,11 @@ public class PlayerThoughts : MonoBehaviour
     // Coroutine to make the text disappear after 3 seconds
     private IEnumerator TextDisappearCoroutine()
     {
+        displayText = true;
         yield return new WaitForSeconds(2f); // Wait for 3 seconds
         thoughtsText.gameObject.SetActive(false); // Deactivate the GameObject
+        displayText = false;
+
     }
 
     // Update the thoughts text content based on the player's stress state
