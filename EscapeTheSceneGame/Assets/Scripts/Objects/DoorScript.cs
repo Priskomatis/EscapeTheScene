@@ -7,6 +7,7 @@ public class DoorScript : MonoBehaviour
     private Animator anim;
     [SerializeField] private AudioSource close;
     [SerializeField] private AudioSource open;
+    public bool locked;
 
     private void Start()
     {
@@ -16,11 +17,19 @@ public class DoorScript : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Y))
         {
-            OpenDoor();
+            if (!locked)
+            {
+                OpenDoor();
+
+            }
         }
         if (Input.GetKeyUp(KeyCode.T))
         {
-            CloseDoor();
+            if (locked)
+            {
+                CloseDoor();
+            }
+            
         }
     }
     public void OpenDoor()
