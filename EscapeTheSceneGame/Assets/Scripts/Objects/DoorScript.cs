@@ -27,6 +27,7 @@ public class DoorScript : MonoBehaviour
         {
             if (locked)
             {
+                FindObjectOfType<PlayerThoughts>().DoorLockedText();
                 CloseDoor();
             }
             
