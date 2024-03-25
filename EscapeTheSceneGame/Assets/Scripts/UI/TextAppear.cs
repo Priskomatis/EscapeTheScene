@@ -15,12 +15,9 @@ public class TextAppear : MonoBehaviour
 
     public void SetText(string textToPut)
     {
-        while (!playerThoughts.displayText)
-        {
-            text.text = textToPut;
-            text.gameObject.SetActive(true);
-        }
-        
+        text.text = textToPut;
+        text.gameObject.SetActive(true);
+
     }
     public void RemoveText()
     {
