@@ -23,7 +23,7 @@ public class DoorScript : MonoBehaviour
 
             }
         }
-        if (Input.GetKeyUp(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.T))
         {
             if (locked)
             {

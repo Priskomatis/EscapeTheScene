@@ -6487,7 +6487,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textMeshPro: {fileID: 683715261}
-  fadeDuration: 3
+  fadeDuration: 2
 --- !u!1 &699701594 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1299665715171864789, guid: 2760d74d08321084d9836b4fa295c964, type: 3}
@@ -30348,6 +30348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d57d1786ab00fab4899edd50705f3a27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayText: 0
   doorLockedTexts:
   - Seems locked, I gotta find a key.
   - There must be a way around this.
