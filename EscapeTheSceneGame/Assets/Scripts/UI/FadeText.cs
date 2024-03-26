@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -6,6 +7,8 @@ public class FadeText : MonoBehaviour
 {
     public TextMeshProUGUI textMeshPro;
     [SerializeField] private float fadeDuration = 2f;
+
+
 
     private void Start()
     {
@@ -85,5 +88,8 @@ public class FadeText : MonoBehaviour
         Color finalColor = startColor;
         finalColor.a = 0f;
         textMeshPro.color = finalColor;
+
+        // Invoke the event when the animation finishes
+
     }
 }
