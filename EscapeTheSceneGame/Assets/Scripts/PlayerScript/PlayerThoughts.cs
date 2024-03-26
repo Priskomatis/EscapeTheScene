@@ -72,7 +72,9 @@ public class PlayerThoughts : MonoBehaviour
         string[] selectedTexts;
         switch (stressSystem.GetState())
         {
+            
             case Health.StressState.Calm:
+                Debug.Log("Test");
                 selectedTexts = calmTexts;
                 break;
             case Health.StressState.MildStress:

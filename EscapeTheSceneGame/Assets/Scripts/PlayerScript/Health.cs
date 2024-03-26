@@ -11,6 +11,20 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
 
+    public static Health Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject); // Ensures only one instance exists
+        }
+    }
+
     PlayerThoughts playerThoughts;
     public enum StressState
     {
@@ -19,16 +33,13 @@ public class Health : MonoBehaviour
         HighStress,
         Panic
     }
+    private StressState currentState;
+
 
     private void Start()
     {
-         playerThoughts = FindObjectOfType<PlayerThoughts>();
+        playerThoughts = FindObjectOfType<PlayerThoughts>();
     }
-
-
-
-
-    private StressState currentState;
 
     // Customizable behaviors for each stress state
     public void OnCalmState()
@@ -65,7 +76,7 @@ public class Health : MonoBehaviour
     // Get current stress state
     public StressState GetState()
     {
-        
+        Debug.Log(currentState);
         return currentState;
     }
 
