@@ -22,21 +22,26 @@ public class PlayerThoughts : MonoBehaviour
     private const float updateInterval = 25f; // Time interval to display the text
     private Coroutine textDisappearCoroutine; // Coroutine reference for text disappearance
 
+
     private void Start()
     {
         stressSystem = FindObjectOfType<Health>(); // Get reference to Health script
         nextUpdateTime = Time.time + updateInterval; // Set initial update time
         fadeText = thoughtsText.GetComponent<FadeText>(); // Get reference to FadeText script
+
+
+
     }
 
     private void Update()
     {
-        // Check if it's time to update the text
-        if (Time.time >= nextUpdateTime)
-        {
-            UpdateThoughtsText();
-            nextUpdateTime += updateInterval; // Update next update time
-        }
+
+    }
+
+
+    private void DeactivateThoughtsText()
+    {
+        thoughtsText.gameObject.SetActive(false);
     }
 
     public void DoorLockedText()
@@ -48,31 +53,55 @@ public class PlayerThoughts : MonoBehaviour
         // Start the fade-in coroutine from FadeText script
         fadeText.FadeInText();
 
+        // Set playerThinking to true since thoughtsText is active
+        displayText = true;
+
         // If the text disappearance coroutine is already running, don't start a new one
-        if (textDisappearCoroutine == null)
+        if (textDisappearCoroutine != null)
         {
-            // Start a new coroutine to make the text disappear after 2 seconds
-            textDisappearCoroutine = StartCoroutine(TextDisappearCoroutine());
+            StopCoroutine(textDisappearCoroutine);
         }
+
+        // Start a new coroutine to make the text disappear after 2 seconds
+        textDisappearCoroutine = StartCoroutine(TextDisappearCoroutine());
     }
 
     // Coroutine to make the text disappear after 2 seconds
     private IEnumerator TextDisappearCoroutine()
     {
-        displayText = true;
         yield return new WaitForSeconds(2f); // Wait for 2 seconds
         fadeText.FadeOutText(); // Start the fade-out coroutine from FadeText script
+        
+        yield return new WaitForSeconds(2f);
         displayText = false;
+        thoughtsText.gameObject.SetActive(false);
+
     }
 
     // Update the thoughts text content based on the player's stress state
     public void UpdateThoughtsText()
     {
+        // Start a coroutine to wait until displayText becomes false
+        StartCoroutine(WaitForDisplayText());
+
+        // The rest of the method will be executed once displayText is false
+    }
+
+    private IEnumerator WaitForDisplayText()
+    {
+        // Wait until displayText becomes false
+        while (displayText)
+        {
+            // Wait for a short time before checking again
+            // This prevents the loop from consuming too much CPU
+            yield return null;
+        }
+
+        // Once displayText is false, execute the remaining part of UpdateThoughtsText()
         // Select random text from the appropriate array based on the current stress state
         string[] selectedTexts;
         switch (stressSystem.GetState())
         {
-            
             case Health.StressState.Calm:
                 Debug.Log("Test");
                 selectedTexts = calmTexts;
@@ -108,4 +137,5 @@ public class PlayerThoughts : MonoBehaviour
         // Start a new coroutine to make the text disappear after 2 seconds
         textDisappearCoroutine = StartCoroutine(TextDisappearCoroutine());
     }
+
 }
