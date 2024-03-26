@@ -88,5 +88,8 @@ public class FadeText : MonoBehaviour
         Color finalColor = startColor;
         finalColor.a = 0f;
         textMeshPro.color = finalColor;
+
+        // Invoke the event when the animation finishes
+
     }
 }
