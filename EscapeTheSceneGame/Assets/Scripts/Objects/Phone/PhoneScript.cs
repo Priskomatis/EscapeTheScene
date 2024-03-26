@@ -1,11 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PhoneScript : MonoBehaviour, IInteractable
 {
     [SerializeField] private AudioSource audioSource;
-    private bool canRing;
+    [SerializeField] private AudioSource currentCall;
+    [SerializeField] private AudioSource pickUpCall;
 
     private TextAppear textAppear;
 
@@ -14,26 +14,43 @@ public class PhoneScript : MonoBehaviour, IInteractable
     private Quest quest;
     private void Start()
     {
-        canRing = false;
         quest = FindObjectOfType<Quest>();
         textAppear = FindObjectOfType<TextAppear>();
+        audioSource.Play();
 
     }
+
+
 
 
     public void Interact()
     {
-        if (canRing && Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            audioSource.Play();
+            audioSource.Stop();
+            PlayCall();
+            
             quest.ActivateQuest("Read the Book");
 
         }
     }
+    private void PlayCall()
+    {
+        pickUpCall.Play();
+        StartCoroutine(waitForPhonecall());
+    }
+
+    IEnumerator waitForPhonecall()
+    {
+        while (pickUpCall.isPlaying)
+        {
+            yield return null;
+        }
+        currentCall.Play();
+    }
 
     public void OnInteractEnter()
     {
-        canRing = true;
         textAppear.SetText("Pick up the phone");
     }
 
