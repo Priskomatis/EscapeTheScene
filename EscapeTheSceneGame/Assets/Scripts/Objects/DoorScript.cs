@@ -7,6 +7,7 @@ public class DoorScript : MonoBehaviour, IInteractable
     private Animator anim;
     [SerializeField] private AudioSource close;
     [SerializeField] private AudioSource open;
+    [SerializeField] private AudioSource lockedAudio;
     public bool locked;
 
     private void Start()
@@ -41,6 +42,7 @@ public class DoorScript : MonoBehaviour, IInteractable
             else
             {
                 PlayerThoughts.FindObjectOfType<PlayerThoughts>().DoorLockedText();
+                lockedAudio.Play();
             }
         }
     }
