@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorScript : MonoBehaviour
+public class DoorScript : MonoBehaviour, IInteractable
 {
     private Animator anim;
     [SerializeField] private AudioSource close;
@@ -13,26 +13,7 @@ public class DoorScript : MonoBehaviour
     {
         anim = GetComponent<Animator>();
     }
-    private void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.Y))
-        {
-            if (!locked)
-            {
-                OpenDoor();
 
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            if (locked)
-            {
-                FindObjectOfType<PlayerThoughts>().DoorLockedText();
-                CloseDoor();
-            }
-            
-        }
-    }
     public void OpenDoor()
     {
         anim.SetTrigger("Open");
@@ -42,10 +23,35 @@ public class DoorScript : MonoBehaviour
     public void CloseDoor()
     {
         anim.SetTrigger("Close");
-        
+
     }
     public void CloseAudio()
     {
         close.Play();
+    }
+
+    public void Interact()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (!locked)
+            {
+                OpenDoor();
+            }
+            else
+            {
+                PlayerThoughts.FindObjectOfType<PlayerThoughts>().DoorLockedText();
+            }
+        }
+    }
+
+    public void OnInteractEnter()
+    {
+        Debug.Log("Can Open door");
+    }
+
+    public void OnInteractExit()
+    {
+        Debug.Log("Cannot Open door");
     }
 }
