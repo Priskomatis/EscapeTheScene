@@ -17,12 +17,15 @@ public class BookObject : MonoBehaviour, IInteractable
 
     private TextAppear textAppear;
 
+    private Quest quest;
+
     public void Start()
     {
         highlight = GetComponent<HighlightEffect>();
         bookManager = FindObjectOfType<BookManager>();
         textAppear = GetComponent<TextAppear>();
         isOpen = false;
+        quest = FindObjectOfType<Quest>();
     }
     public void ToggleEmmision()
     {
@@ -52,7 +55,7 @@ public class BookObject : MonoBehaviour, IInteractable
             if (!isOpen)
             {
                 OpenBook();
-                
+                quest.CompleteQuest();
                 isOpen = true;
             }else
             {
