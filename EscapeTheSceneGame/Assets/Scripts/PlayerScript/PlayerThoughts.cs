@@ -33,17 +33,6 @@ public class PlayerThoughts : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-
-    }
-
-
-    private void DeactivateThoughtsText()
-    {
-        thoughtsText.gameObject.SetActive(false);
-    }
-
     public void DoorLockedText()
     {
         int textIndex = Random.Range(0, doorLockedTexts.Length);
